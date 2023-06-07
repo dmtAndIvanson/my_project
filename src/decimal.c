@@ -16,7 +16,7 @@
 #define ZERO_DIVISION 3
 
 // True/False
-#define S21_TRUE 21
+#define S21_TRUE 1
 #define S21_FALSE 0
 
 // Structures.
