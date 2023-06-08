@@ -1,71 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// Defines for work with bits.
-#define INT_1_ONE_MASK ~0
-#define INT_4_ZERO_MASK {{0,0,0,0}}
-#define INT_3_LEN 3 * sizeof(int)
-#define INT_4_LEN 4 * sizeof(int)
-#define BUFF_SIZE 4
-
-// Function returns.
-#define CORRECT_RETURN 0
-#define INCORRECT_RETURN 1
-#define INF_RETURN 1
-#define NEG_INF_RETURN 2
-#define ZERO_DIVISION 3
-
-// True/False
-#define S21_TRUE 1
-#define S21_FALSE 0
-
-// Structures.
-typedef struct
-{
-    int bits[BUFF_SIZE];
-} s21_decimal;
-
-// Arithmetic functions.
-int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
-int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
-
-// Additional functions.
-void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
-void s21_sub_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
-int s21_is_decimal(s21_decimal number);
-int s21_get_sign(s21_decimal number);
-void output_bits(int val);
-
-int main(void)
-{
-    s21_decimal val_1 = {{0,1,2,0}};
-    s21_decimal val_2 = {{0,0,1,0}};
-    s21_decimal res = INT_4_ZERO_MASK;
-    int *tmp_1 = (int *)(&val_1);
-    int *tmp_2 = (int *)(&val_2);
-    int *tmp_3 = (int *)(&res);
-    s21_sub(val_1, val_2,&res);
-    int *ptr = (int*)(&res);
-    for (int i = 0; i < BUFF_SIZE; i++)
-    {
-        output_bits(tmp_1[i]);
-    }
-    printf("\n");
-    for (int i = 0; i < BUFF_SIZE; i++)
-    {
-        output_bits(tmp_2[i]);
-    }
-    printf("\n");
-    for (int i = 0; i < BUFF_SIZE; i++)
-    {
-        output_bits(tmp_3[i]);
-    }
-    printf("\n");
-    for (int i = 0; i < BUFF_SIZE; i++)
-    {
-        printf("int %i: %i\n", i, ptr[i]);
-    }
-}
+#include "decimal.h"
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result)
 {
