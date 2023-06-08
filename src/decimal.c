@@ -33,12 +33,13 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 void s21_sub_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 int s21_is_decimal(s21_decimal number);
+int s21_get_sign(s21_decimal number);
 void output_bits(int val);
 
 int main(void)
 {
-    s21_decimal val_1 = {{0,3,1,0}};
-    s21_decimal val_2 = {{0,2,3,0}};
+    s21_decimal val_1 = {{0,1,2,0}};
+    s21_decimal val_2 = {{0,0,1,0}};
     s21_decimal res = INT_4_ZERO_MASK;
     int *tmp_1 = (int *)(&val_1);
     int *tmp_2 = (int *)(&val_2);
@@ -149,7 +150,7 @@ void s21_sub_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]
 void output_bits(int val)
 {
     int setter = 1;
-    for (size_t i = 1; i <= sizeof(int); i++)
+    for (size_t i = 1; i <= sizeof(int)*8; i++)
     {
         if (val & (setter << (sizeof(int) - i)))
         {
