@@ -33,7 +33,7 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 void s21_sub_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 int s21_is_decimal(s21_decimal number);
-int s21_get_sign(s21_decimal number);
+int s21_get_decimal_sign(s21_decimal number);
 void output_bits(int val);
 
 #endif

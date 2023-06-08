@@ -5,39 +5,72 @@
 
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result)
 {
+    int return_value = CORRECT_RETURN;
     // Check numbers are correct.
-    // Normalize numbers.
-    // Initialize long value for calculations.
-    int long_value_1[BUFF_SIZE] = {0};
-    int long_value_2[BUFF_SIZE] = {0};
-    int long_result[BUFF_SIZE] = {0};
-    // Copy significant parts to long values.
-    memcpy(long_value_1+1, &value_1, INT_3_LEN);
-    memcpy(long_value_2+1, &value_2, INT_3_LEN);
     // Check signs of numbers. And determine sign.
-    // Sum numbers to long value.
-    s21_sum_bits(long_value_1, long_value_2, long_result);
-    // Check overflow.
-    memcpy(result, long_result+1, INT_3_LEN);
-    return 0;
+    if ((s21_get_decimal_sign(value_1) + s21_get_decimal_sign(value_2)) == 1)
+    {
+        if (s21_get_decimal_sign(value_1))
+        {
+            s21_decimal tmp = {0};
+            memcpy(&tmp, &value_1, sizeof(s21_decimal));
+            memcpy(&value_1, &value_2, sizeof(s21_decimal));
+            memcpy(&value_2, &tmp, sizeof(s21_decimal));
+        }
+        return_value = s21_sub(value_1, value_2, result);
+    }
+    else
+    {
+        // Normalize numbers.
+        // Initialize long value for calculations.
+        int long_value_1[BUFF_SIZE] = {0};
+        int long_value_2[BUFF_SIZE] = {0};
+        int long_result[BUFF_SIZE] = {0};
+        // Copy significant parts to long values.
+        memcpy(long_value_1+1, &value_1, INT_3_LEN);
+        memcpy(long_value_2+1, &value_2, INT_3_LEN);
+        // Sum numbers to long value.
+        s21_sum_bits(long_value_1, long_value_2, long_result);
+        // Check overflow.
+        memcpy(result, long_result+1, INT_3_LEN);
+    }
+    return return_value;
 }
 
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result)
 {
     // Check numbers are correct.
-    // Normalize numbers.
-    // Initialize long value for calculations.
-    int long_value_1[BUFF_SIZE] = {0};
-    int long_value_2[BUFF_SIZE] = {0};
-    int long_result[BUFF_SIZE] = {0};                                     
-    // Copy significant parts to long values.
-    memcpy(long_value_1+1, &value_1, INT_3_LEN);
-    memcpy(long_value_2+1, &value_2, INT_3_LEN);
     // Check signs of numbers. And determine sign.
-    // Sub numbers to long value.
-    s21_sub_bits(long_value_1, long_value_2, long_result);
-    memcpy(result, long_result+1, INT_3_LEN);
-    // Check overflow.
+    if ((s21_get_decimal_sign(value_1) + s21_get_decimal_sign(value_2)) == 1)
+    {
+        // Change sign.
+        int *ptr = (int *)(&value_2);
+        if (s21_get_decimal_sign(value_1))
+        {
+            ptr[3] |= 1;
+        }
+        else
+        {
+            ptr[3] ^= 1;
+        }
+        // Calculate sum.
+        return_value = s21_add(value_1, value_2, result);
+    }
+    else
+    {
+        // Normalize numbers.
+        // Initialize long value for calculations.
+        int long_value_1[BUFF_SIZE] = {0};
+        int long_value_2[BUFF_SIZE] = {0};
+        int long_result[BUFF_SIZE] = {0};                                     
+        // Copy significant parts to long values.
+        memcpy(long_value_1+1, &value_1, INT_3_LEN);
+        memcpy(long_value_2+1, &value_2, INT_3_LEN);
+        // Sub numbers to long value.
+        s21_sub_bits(long_value_1, long_value_2, long_result);
+        memcpy(result, long_result+1, INT_3_LEN);
+        // Check overflow.
+    }
     return 0;
 }
 
@@ -88,7 +121,7 @@ void output_bits(int val)
     int setter = 1;
     for (size_t i = 1; i <= sizeof(int)*8; i++)
     {
-        if (val & (setter << (sizeof(int) - i)))
+        if (val & (setter << (sizeof(int)*8-i)))
         {
             printf("1");
         }
@@ -97,4 +130,15 @@ void output_bits(int val)
             printf("0");
         }
     }
+}
+
+int s21_get_decimal_sign(s21_decimal number)
+{
+    int answer = S21_FALSE;
+    int *ptr = (int *)(&number);
+    if (ptr[3] & 1)
+    {
+        answer = S21_TRUE;    
+    }
+    return answer;
 }

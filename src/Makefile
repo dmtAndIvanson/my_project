@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c11
 LIBS = decimal.c
-BUILDING_FILE = tmp.c
+BUILDING_FILE = testing.c
 TARGET_NAME = tmp
 
 all: clean build
