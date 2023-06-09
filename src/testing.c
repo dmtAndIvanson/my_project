@@ -4,7 +4,7 @@
 
 int main(void)
 {
-    s21_decimal val_1 = {{0,0,20,29<<(EXP_TRAIL_ZEROS+1)}};
+    s21_decimal val_1 = {{0,0,13,0}};
     int *tmp_1 = (int *)(&val_1);
     for (int i = 0; i < BUFF_SIZE; i++)
     {
