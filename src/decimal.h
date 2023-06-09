@@ -39,6 +39,7 @@ int s21_get_decimal_sign(s21_decimal number);
 int s21_get_decimal_exp(s21_decimal number);
 void s21_set_decimal_exp(s21_decimal *number, int exponent);
 void s21_decimal_devide_10(s21_decimal *number);
+void s21_decimal_multiply_10(s21_decimal *number);
 void output_bits(int val);
 
 // TODO:

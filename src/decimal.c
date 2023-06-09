@@ -176,60 +176,18 @@ void s21_set_decimal_exp(s21_decimal *number, int exponent)
     ptr[3] |= exponent;
 }
 
-/*void s21_decimal_devide_10(s21_decimal *number)
-{
-    int exp = s21_get_decimal_exp(*number);
-    int *ptr = (int *)number;
-    int initial_number[BUFF_SIZE] = {0};
-    memcpy(initial_number+1, ptr, INT_3_LEN);
-    int minus_number[BUFF_SIZE] = {0,0,0,10};
-    int diff[BUFF_SIZE] = {0};
-    int result[BUFF_SIZE] = {0};
-    int tmp_result[BUFF_SIZE] = {0};
-    int increment[BUFF_SIZE] = {0,0,0,1};
-    int *ptr_initial_number = initial_number;
-    int *ptr_diff = diff;
-    int *ptr_result = result;
-    int *ptr_tmp_result = tmp_result;
-    while (memcmp(initial_number, minus_number, INT_4_LEN) >= 0)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            printf("< %d -- %d >\n",ptr_initial_number[i], minus_number[i]);
-        }
-        s21_sub_bits(ptr_initial_number,minus_number,ptr_diff);
-        int *tmp = ptr_initial_number;
-        ptr_initial_number = ptr_diff;
-        ptr_diff = ptr_initial_number;
-        s21_sum_bits(ptr_result,increment,ptr_tmp_result);
-        // TODO: make as function.
-        tmp = ptr_tmp_result;
-        ptr_tmp_result = ptr_result;
-        ptr_result = tmp;
-    }
-    if (initial_number[3] >= 5)
-    {
-        s21_sum_bits(ptr_result,increment,ptr_tmp_result);
-        // TODO: make as function.
-        int *tmp = ptr_tmp_result;
-        ptr_tmp_result = ptr_result;
-        ptr_result = tmp;
-    }
-    exp -= 1;
-    memcpy(number, result, INT_3_LEN);
-    s21_set_decimal_exp(number, exp);
-}*/
-
 void s21_decimal_devide_10(s21_decimal *number)
 {
+    // Buffers for storage calculations.
     int minus[BUFF_SIZE] = {0,0,0,10};
-    int initial_number[BUFF_SIZE] = {0};
-    memcpy(initial_number+1, number, INT_3_LEN);
-    int tmp_number[BUFF_SIZE] = {0};
-    int result[BUFF_SIZE] = {0};
-    int tmp_result[BUFF_SIZE] = {0};
-    int *ptr1 = initial_number, *ptr2 = tmp_number;
     int increment[BUFF_SIZE] = {0,0,0,1};
+    int initial_number[BUFF_SIZE] = {0};
+    int result[BUFF_SIZE] = {0};
+    int tmp_number[BUFF_SIZE] = {0};
+    int tmp_result[BUFF_SIZE] = {0};
+    memcpy(initial_number+1, number, INT_3_LEN);
+    // Pointers for correct calculations.
+    int *ptr1 = initial_number, *ptr2 = tmp_number;
     int *ptr3 = result, *ptr4 = tmp_result;
     for (; memcmp(ptr1, minus, INT_4_LEN) >= 0;)
     {
@@ -248,7 +206,11 @@ void s21_decimal_devide_10(s21_decimal *number)
         int *tmp = ptr3;
         ptr3 = ptr4;
         ptr4 = tmp;
-
     }
     memcpy(number, ptr3+1, INT_3_LEN);
+}
+
+void s21_decimal_multiply_10(s21_decimal *number)
+{
+    
 }
