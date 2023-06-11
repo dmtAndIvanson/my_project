@@ -12,6 +12,7 @@
 #define INCORRECT_RETURN 1
 
 #define CONVERT_ERROR 1
+#define CALCULATION_ERROR 1
 
 #define LARGE_NUMBER_ERROR 1
 #define SMALL_NUMBER_ERROR 2
@@ -33,10 +34,13 @@ typedef struct
 } s21_decimal;
 
 // Access decimal exponent and sign.
+#define NOT_DECIMAL 0xFFFF00FE
 #define LEAD_ZERO_LEN 16
 #define EXP_LEN 8
-#define TRAL_ZERO_LEN 7
+#define TRAIL_ZERO_LEN 7
 #define SIGN_LEN 1
+#define MIN_EXPONENT 0
+#define MAX_EXPONENT 28
 
 
 // Converters and parsers.
@@ -57,6 +61,7 @@ int s21_divide_10_bits(int bits[BUFF_SIZE]);
 int s21_bit_shift_buffer(int buffer[BUFF_SIZE]);
 int s21_get_decimal_exp(s21_decimal number);
 void s21_set_decimal_exp(s21_decimal *number, int exponent);
+int s21_is_decimal(s21_decimal value);
 
 void s21_output_bits(int *num, int len);
 

@@ -99,7 +99,7 @@ int s21_get_decimal_exp(s21_decimal number)
     int *ptr = (int *)(&number);
     exponent = ptr[3];
     exponent <<= LEAD_ZERO_LEN;
-    exponent >>= (LEAD_ZERO_LEN+TRAL_ZERO_LEN+SIGN_LEN);
+    exponent >>= (LEAD_ZERO_LEN+TRAIL_ZERO_LEN+SIGN_LEN);
     return exponent;
 }
 
@@ -108,7 +108,7 @@ void s21_set_decimal_exp(s21_decimal *number, int exponent)
     if (number)
     {
         int *ptr = (int *)(&number);
-        exponent <<= (TRAL_ZERO_LEN+SIGN_LEN);
+        exponent <<= (TRAIL_ZERO_LEN+SIGN_LEN);
         ptr[3] &= 1;
         ptr[3] |= exponent;
     }
