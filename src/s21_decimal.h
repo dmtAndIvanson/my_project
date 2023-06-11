@@ -9,8 +9,17 @@
 #define S21_FALSE 0
 
 #define CORRECT_RETURN 0
+#define CONVERT_ERROR 1
+
+#define LARGE_NUMBER_ERROR 1
+#define SMALL_NUMBER_ERROR 2
+#define ZERO_DIVISION_ERROR 3
+
 
 // Structure for decimal. And constants.
+#define INT_3_LEN sizeof(int)*3
+#define INT_4_LEN sizeof(int)*4
+#define BITS_IN_INT sizeof(int)*8
 #define BUFF_SIZE 4
 
 typedef struct
@@ -32,5 +41,6 @@ int s21_from_decima_to_float(s21_decimal, int *dst);
 
 // Arithmetic.
 void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
+int s21_divide_10_bits(int bits[BUFF_SIZE]);
 
 #endif

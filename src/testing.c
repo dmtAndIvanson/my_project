@@ -7,11 +7,9 @@ void s21_output_bits(int *num, int len);
 
 int main(void)
 {
-    int bits1[4] = {0,0,0,1};
-    int bits2[4] = {0,0,0,1};
-    int bits3[4] = {0};
-    s21_sum_bits(bits1,bits2,bits3);
-    s21_output_bits(bits3, 4);
+    int bits[BUFF_SIZE] = {0,1,0,0};
+    s21_divide_10_bits(bits);
+    s21_output_bits(bits, 4);
     printf("\n");
 }
 
@@ -31,6 +29,7 @@ void s21_output_bits(int *num, int len)
                 printf("0");
             }
         }
+        printf(" ");
     }
     printf("\n");
 }
