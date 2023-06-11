@@ -8,8 +8,3 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst)
     // Set exponent to zero.
     // Set sign.
 }
-
-int s21_sum_bits(int val1[BUFF_SIZE], int val2[BUFF_SIZE], int res[BUFF_SIZE])
-{
-    
-}

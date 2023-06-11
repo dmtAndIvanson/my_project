@@ -1,3 +1,6 @@
+#include <string.h>
+#include <stdio.h>
+
 #ifndef S21_DECIMAL_H
 #define S21_DECIMAL_H
 
@@ -26,5 +29,8 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst);
 int s21_from_float_to_decimal(float src, s21_decimal *dst);
 int s21_from_decimal_to_int(s21_decimal src, int *dst);
 int s21_from_decima_to_float(s21_decimal, int *dst);
+
+// Arithmetic.
+void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 
 #endif
