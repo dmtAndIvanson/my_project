@@ -25,16 +25,25 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst)
     return return_value;
 }
 
-/*int s21_from_decimal_to_int(s21_decimal src, int *dst)
+int s21_from_decimal_to_int(s21_decimal src, int *dst)
 {
     int return_value = CONVERT_ERROR;
-    // Check decimal is correct.
-    if (dst)
+    if (dst && s21_is_decimal(src))
     {
-        // Convert decimal to 0 exponent, including rounding.
-        // Check value can be stored in int type.
-        // Copy value to integer.
-        // Include sign logic.
+        s21_decimal floor_src = {{0}};
+        if (!s21_floor(src, &floor_src))
+        {
+            int *ptr = (int *)(&floor_src);
+            if (!ptr[0] && !ptr[1] && (ptr[2] >= 0 || !(ptr[3] & 1)))
+            {
+                return_value = CORRECT_RETURN;
+                *dst = ptr[2];
+                if (ptr[2] && (ptr[3] & 1))
+                {
+                    *dst = ~(ptr[2] - 1);
+                }
+            }
+        }
     }
     return return_value;
-}*/
+}
