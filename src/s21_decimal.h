@@ -9,12 +9,17 @@
 #define S21_FALSE 0
 
 #define CORRECT_RETURN 0
+#define INCORRECT_RETURN 1
+
 #define CONVERT_ERROR 1
 
 #define LARGE_NUMBER_ERROR 1
 #define SMALL_NUMBER_ERROR 2
 #define ZERO_DIVISION_ERROR 3
 
+// Macros for utils.
+#define NUMBER_BETWEEN(number, left, right) ((number) >= (left) && (number) <= (right))
+#define GET_FIRST_BIT(number) (((number) & (1 << (BITS_IN_INT-2))) >> (BITS_IN_INT-2))
 
 // Structure for decimal. And constants.
 #define INT_3_LEN sizeof(int)*3
@@ -27,6 +32,7 @@ typedef struct
     int bits[BUFF_SIZE];
 } s21_decimal;
 
+// Access decimal exponent and sign.
 #define LEAD_ZERO_LEN 16
 #define EXP_LEN 8
 #define TRAL_ZERO_LEN 7
@@ -40,7 +46,13 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst);
 int s21_from_decima_to_float(s21_decimal, int *dst);
 
 // Arithmetic.
+
+
+// Utils functions.
 void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 int s21_divide_10_bits(int bits[BUFF_SIZE]);
+int s21_bit_shift_buffer(int buffer[BUFF_SIZE]);
+
+void s21_output_bits(int *num, int len);
 
 #endif
