@@ -46,12 +46,17 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst);
 int s21_from_decima_to_float(s21_decimal, int *dst);
 
 // Arithmetic.
+// ...
 
+// Another functions.
+int s21_floor(s21_decimal value, s21_decimal *result);
 
 // Utils functions.
 void s21_sum_bits(int val_1[BUFF_SIZE], int val_2[BUFF_SIZE], int res[BUFF_SIZE]);
 int s21_divide_10_bits(int bits[BUFF_SIZE]);
 int s21_bit_shift_buffer(int buffer[BUFF_SIZE]);
+int s21_get_decimal_exp(s21_decimal number);
+void s21_set_decimal_exp(s21_decimal *number, int exponent);
 
 void s21_output_bits(int *num, int len);
 

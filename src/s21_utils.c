@@ -71,21 +71,45 @@ int s21_bit_shift_buffer(int buffer[BUFF_SIZE])
 
 void s21_output_bits(int *num, int len)
 {
-    int setter = 1;
-    for (int j = 0; j < len; j++)
+    if (num)
     {
-        for (int i = (int)sizeof(int)*8 - 1; i >= 0; i--)
+        int setter = 1;
+        for (int j = 0; j < len; j++)
         {
-            if (num[j] & (setter << i))
+            for (int i = (int)sizeof(int)*8 - 1; i >= 0; i--)
             {
-                printf("1");
+                if (num[j] & (setter << i))
+                {
+                    printf("1");
+                }
+                else
+                {
+                    printf("0");
+                }
             }
-            else
-            {
-                printf("0");
-            }
+            printf(" ");
         }
-        printf(" ");
+        printf("\n");
     }
-    printf("\n");
+}
+
+int s21_get_decimal_exp(s21_decimal number)
+{
+    int exponent = 0;
+    int *ptr = (int *)(&number);
+    exponent = ptr[3];
+    exponent <<= LEAD_ZERO_LEN;
+    exponent >>= (LEAD_ZERO_LEN+TRAL_ZERO_LEN+SIGN_LEN);
+    return exponent;
+}
+
+void s21_set_decimal_exp(s21_decimal *number, int exponent)
+{
+    if (number)
+    {
+        int *ptr = (int *)(&number);
+        exponent <<= (TRAL_ZERO_LEN+SIGN_LEN);
+        ptr[3] &= 1;
+        ptr[3] |= exponent;
+    }
 }
