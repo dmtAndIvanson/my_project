@@ -28,7 +28,7 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst)
 int s21_from_decimal_to_int(s21_decimal src, int *dst)
 {
     int return_value = CONVERT_ERROR;
-    if (dst && s21_is_decimal(src))
+    if (dst)
     {
         s21_decimal floor_src = {{0}};
         if (!s21_floor(src, &floor_src))
@@ -44,6 +44,17 @@ int s21_from_decimal_to_int(s21_decimal src, int *dst)
                 }
             }
         }
+    }
+    return return_value;
+}
+
+int s21_from_float_to_decimal(float src, s21_decimal *dst)
+{
+    int return_value = CONVERT_ERROR;
+    if (dst)
+    {
+        return_value = CORRECT_RETURN;
+        // 
     }
     return return_value;
 }
